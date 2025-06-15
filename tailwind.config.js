@@ -54,7 +54,14 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			},
   			// Studio Ghibli inspired colors
+			  "ghibli-orange":"#ED6A28",
+			  "ghibli-cyan": "#5EB4C9",
+			  "ghibli-cream" : "#FFFDF5",
+			  "ghibli-green": "#DBF7E3",
+			  "ghibli-purple" : "#6578CD",
+			  "ghibli-gray" : "#F4F4F4",
   			ghibli: {
+				
   				// Warm sunset/golden hour colors from Howl's Moving Castle
   				sunset: {
   					50: '#fef7ed',
@@ -132,9 +139,114 @@ export default {
   					700: '#d4841f',
   					800: '#b16718',
   					900: '#8f5419'
-  				}
+  				},
+				
+				night: {
+					50:  '#f5f7fa',
+					100: '#e4e9f2',
+					200: '#cfd8e3',
+					300: '#a4b0c9',
+					400: '#6e7fa8',
+					500: '#475c91',
+					600: '#334478',
+					700: '#253360',
+					800: '#1b2749',
+					900: '#111833',
+				  },
+				  soot: {
+					50:  '#f9fafb',
+					100: '#f3f4f6',
+					200: '#e5e7eb',
+					300: '#d1d5db',
+					400: '#9ca3af',
+					500: '#6b7280',
+					600: '#4b5563',
+					700: '#374151',
+					800: '#1f2937',
+					900: '#111827',
+				  },
+				  // Ghibli Park official colors
+				  park: {
+					// Warm earth tones from the official site
+					brown: {
+					  50: '#faf8f4',
+					  100: '#f4f0e8',
+					  200: '#e8ddc8',
+					  300: '#d4c1a0',
+					  400: '#c5a572',
+					  500: '#b8924d',
+					  600: '#a67c3a',
+					  700: '#8b652f',
+					  800: '#6f4f24',
+					  900: '#5a3f1c',
+					},
+					// Official Ghibli Park orange/rust
+					rust: {
+					  50: '#fef7f0',
+					  100: '#fdeee0',
+					  200: '#f9d6c1',
+					  300: '#f4b896',
+					  400: '#ec8c5c',
+					  500: '#e76530',
+					  600: '#d64d1e',
+					  700: '#b23d18',
+					  800: '#8f311a',
+					  900: '#742a18',
+					},
+					// Natural green from park elements
+					nature: {
+					  50: '#f4f7f4',
+					  100: '#e6efe6',
+					  200: '#cfe0cf',
+					  300: '#a9c9a9',
+					  400: '#7ba87b',
+					  500: '#588a58',
+					  600: '#446944',
+					  700: '#385638',
+					  800: '#2d442d',
+					  900: '#263826',
+					},
+					// Soft cream backgrounds
+					cream: {
+					  50: '#fefcf9',
+					  100: '#fdf8f0',
+					  200: '#fbf0e1',
+					  300: '#f7e4c8',
+					  400: '#f1d4a3',
+					  500: '#e8c07a',
+					  600: '#dba555',
+					  700: '#c08843',
+					  800: '#9e6f37',
+					  900: '#805b2f',
+					}
+				  },
   			}
-  		}
+  		},
+  		// Custom keyframes & animations for Ghibli-style motion
+  		keyframes: {
+  		  float: {
+  		    '0%, 100%': { transform: 'translateY(0px)' },
+  		    '50%': { transform: 'translateY(-12px)' },
+  		  },
+  		  sway: {
+  		    '0%, 100%': { transform: 'rotate(0deg)' },
+  		    '50%': { transform: 'rotate(3deg)' },
+  		  },
+  		  drift: {
+  		    '0%': { transform: 'translateX(-20%)' },
+  		    '100%': { transform: 'translateX(120%)' },
+  		  },
+  		  wave: {
+  		    '0%': { transform: 'translateX(0)' },
+  		    '100%': { transform: 'translateX(-50%)' },
+  		  },
+  		},
+  		animation: {
+  		  float: 'float 6s ease-in-out infinite',
+  		  sway: 'sway 8s ease-in-out infinite',
+  		  drift: 'drift 60s linear infinite',
+  		  wave: 'wave 30s linear infinite',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

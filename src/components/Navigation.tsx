@@ -10,16 +10,21 @@ export const Navigation: React.FC = () => {
     { path: "/docs", label: "Docs" },
   ];
 
+  // Hide navigation on landing page
+  if (location.pathname === "/") {
+    return null;
+  }
+
   return (
     <nav className="hidden md:flex items-center space-x-8">
       {navItems.map((item) => (
         <Link
           key={item.path}
           to={item.path}
-          className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+          className={`text-sm font-medium transition-all duration-300 hover:text-ghibli-park-rust-600 relative ${
             location.pathname === item.path
-              ? "text-blue-400 border-b-2 border-blue-400 pb-1"
-              : "text-[#F7F8F8]"
+              ? "text-ghibli-park-rust-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-ghibli-park-rust-500 after:rounded-full"
+              : "text-ghibli-park-brown-700 hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-0.5 hover:after:bg-ghibli-park-rust-400 hover:after:rounded-full hover:after:transition-all hover:after:duration-300"
           }`}
         >
           {item.label}
