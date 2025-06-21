@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 export const Layout: React.FC = () => {
   return (
-    <div className="min-h-screen bg-ghibli-park-cream-50">
+    <div className="min-h-screen bg-ghibli-park-cream-50 font-sling">
       {/* Header inspired by Ghibli Museum website */}
       <header className="sticky top-0 z-50 bg-gradient-to-r from-ghibli-park-cream-100 via-ghibli-park-brown-50 to-ghibli-park-cream-100 border-b-2 border-ghibli-park-brown-200 shadow-lg">
         {/* Top thin accent line */}

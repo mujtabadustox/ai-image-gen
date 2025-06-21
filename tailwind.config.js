@@ -222,6 +222,10 @@ export default {
 				  },
   			}
   		},
+		  fontFamily: {
+			"lora": ["Lora", "sans-serif"],
+			"sling": ["Sling", "sans-serif"],
+		  },
   		// Custom keyframes & animations for Ghibli-style motion
   		keyframes: {
   		  float: {

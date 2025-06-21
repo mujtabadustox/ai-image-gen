@@ -78,10 +78,114 @@ html {
 
 
 @layer base {
+
+  @font-face {
+    font-family: "Lora";
+    src: url("/fonts/Lora-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Sling";
+    src: url("/fonts/Sling.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+
+
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Firefly animations and glow effects */
+@keyframes firefly-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px);
+  }
+  75% {
+    transform: translateY(-25px) translateX(5px);
+  }
+}
+
+@keyframes firefly-float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-15px) translateX(-10px);
+  }
+  66% {
+    transform: translateY(-5px) translateX(15px);
+  }
+}
+
+@keyframes firefly-drift {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-30px) translateX(20px);
+  }
+}
+
+@keyframes firefly-drift-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-25px);
+  }
+}
+
+.animate-firefly-float {
+  animation: firefly-float 4s ease-in-out infinite;
+}
+
+.animate-firefly-float-slow {
+  animation: firefly-float-slow 6s ease-in-out infinite;
+}
+
+.animate-firefly-drift {
+  animation: firefly-drift 5s ease-in-out infinite;
+}
+
+.animate-firefly-drift-slow {
+  animation: firefly-drift-slow 7s ease-in-out infinite;
+}
+
+.shadow-firefly {
+  box-shadow: 0 0 6px #fef08a, 0 0 12px #fde047, 0 0 18px #facc15;
+}
+
+.shadow-firefly-large {
+  box-shadow: 0 0 8px #fef08a, 0 0 16px #fde047, 0 0 24px #facc15;
+}
+
+.shadow-firefly-small {
+  box-shadow: 0 0 4px #fef08a, 0 0 8px #fde047, 0 0 12px #facc15;
+}
+
+/* Ghibli-style subtle paper texture */
+.bg-texture-paper {
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 248, 220, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 239, 213, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(254, 252, 234, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 60% 30%, rgba(255, 245, 217, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 90% 70%, rgba(255, 242, 204, 0.2) 0%, transparent 50%);
+  background-size: 800px 800px, 600px 600px, 1000px 1000px, 700px 700px, 900px 900px;
+  background-position: 0% 0%, 100% 100%, 50% 50%, 25% 75%, 75% 25%;
 }

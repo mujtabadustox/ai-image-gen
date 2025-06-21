@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -20,9 +20,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         "ghibli-filled":
-          "bg-ghibli-orange text-white border-2 border-ghibli-orange shadow-sm hover:bg-white hover:text-ghibli-orange rounded-full transition-all duration-300",
+          "bg-ghibli-orange text-white border-2 border-ghibli-orange shadow-sm  rounded-full transition-all duration-300",
         "ghibli-outline":
-          "bg-white text-ghibli-orange border-2 border-ghibli-orange shadow-sm hover:bg-ghibli-orange hover:text-white rounded-full transition-all duration-300",
+          "bg-white text-ghibli-orange border-2 border-ghibli-orange shadow-sm  rounded-full transition-all duration-300",
         "ghibli-cyan-filled":
           "bg-ghibli-cyan text-white border-2 border-ghibli-cyan shadow-sm hover:bg-white hover:text-ghibli-cyan rounded-full transition-all duration-300",
         "ghibli-cyan-outline":
