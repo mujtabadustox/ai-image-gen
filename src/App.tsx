@@ -17,9 +17,10 @@ const App: React.FC = () => {
           <Route path="signup" element={<SignupPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="community-feed" element={<CommunityFeedPage />} />
-          <Route path="generate" element={<GeneratePage />} />
           <Route path="docs" element={<DocsPage />} />
         </Route>
+        {/* Generate page without Layout (no footer) */}
+        <Route path="generate" element={<GeneratePage />} />
       </Routes>
     </Router>
   );

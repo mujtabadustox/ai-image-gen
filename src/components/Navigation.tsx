@@ -11,7 +11,11 @@ export const Navigation: React.FC = () => {
   ];
 
   // Hide navigation on landing page
-  if (location.pathname === "/") {
+  if (
+    location.pathname === "/" ||
+    location.pathname === "/login" ||
+    location.pathname === "/signup"
+  ) {
     return null;
   }
 
