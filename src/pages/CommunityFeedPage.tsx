@@ -36,6 +36,7 @@ interface ArtworkData {
   comments?: number;
   retweets?: number;
   createdAt: string;
+  aspectRatio?: string;
 }
 
 interface VideoData {
@@ -47,6 +48,7 @@ interface VideoData {
   likes: number;
   comments: number;
   createdAt: string;
+  aspectRatio?: string;
 }
 
 const CommunityFeedPage: React.FC = () => {
@@ -166,6 +168,21 @@ const CommunityFeedPage: React.FC = () => {
     "Mind blown by AI art capabilities! #DigitalArt #Ghibli",
   ];
 
+  // Add aspect ratio options
+  const aspectRatios = [
+    "h-64", // square-ish
+    "h-72", // medium
+    "h-80", // tall
+    "h-96", // very tall
+    "h-60", // short
+    "h-56", // shorter
+  ];
+
+  // Function to get random aspect ratio
+  const getRandomAspectRatio = () => {
+    return aspectRatios[Math.floor(Math.random() * aspectRatios.length)];
+  };
+
   // Fetch images from Picsum API
   const fetchImages = useCallback(async (pageNum: number) => {
     try {
@@ -190,6 +207,7 @@ const CommunityFeedPage: React.FC = () => {
         likes: Math.floor(Math.random() * 500) + 50,
         comments: Math.floor(Math.random() * 30) + 5,
         createdAt: `${Math.floor(Math.random() * 24)} hours ago`,
+        aspectRatio: getRandomAspectRatio(),
       }));
 
       // Create videos data (using groups of 4 images)
@@ -219,6 +237,7 @@ const CommunityFeedPage: React.FC = () => {
           likes: Math.floor(Math.random() * 800) + 200,
           comments: Math.floor(Math.random() * 50) + 10,
           createdAt: `${Math.floor(Math.random() * 12)} hours ago`,
+          aspectRatio: getRandomAspectRatio(),
         };
       });
 
@@ -232,6 +251,7 @@ const CommunityFeedPage: React.FC = () => {
         likes: Math.floor(Math.random() * 1500) + 100,
         retweets: Math.floor(Math.random() * 500) + 50,
         createdAt: `${Math.floor(Math.random() * 8)} hours ago`,
+        aspectRatio: getRandomAspectRatio(),
       }));
 
       // Update state based on page number
@@ -344,16 +364,18 @@ const CommunityFeedPage: React.FC = () => {
   };
 
   const renderLiveFeedGrid = (artworks: ArtworkData[]) => (
-    <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-8">
+    <div className="max-w-7xl mx-auto columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 px-8 space-y-6">
       {artworks.map((artwork, index) => (
         <Dialog key={artwork.id}>
           <DialogTrigger className="group">
-            <div className="bg-white/80 backdrop-blur-sm overflow-hidden border-3 border-ghibli-orange hover:border-ghibli-orange/80 hover:transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+            <div className="bg-white/80 backdrop-blur-sm overflow-hidden border-3 border-ghibli-orange hover:border-ghibli-orange/80 hover:transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mb-6 break-inside-avoid">
               <div className="relative">
                 <ImageWithFallback
                   src={artwork.image}
                   alt={artwork.title}
-                  className="w-full h-72 object-cover transition-all group-hover:scale-105"
+                  className={`w-full ${
+                    artwork.aspectRatio || "h-72"
+                  } object-cover transition-all group-hover:scale-105`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">
@@ -407,7 +429,6 @@ const CommunityFeedPage: React.FC = () => {
                   className="w-full text-xl font-bold hover:scale-105 transition-all"
                 >
                   Use This Prompt ✨
-                  <Star className="ml-2 h-6 w-6" />
                 </Button>
               </Link>
             </div>
@@ -418,13 +439,13 @@ const CommunityFeedPage: React.FC = () => {
   );
 
   const renderVideosGrid = (videos: VideoData[]) => (
-    <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-8">
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
       {videos.map((video) => (
         <Dialog key={video.id}>
           <DialogTrigger className="group">
             <div className="bg-white/80 backdrop-blur-sm overflow-hidden border-3 border-ghibli-orange hover:border-ghibli-orange/80 hover:transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
               <div className="relative">
-                <div className="grid grid-cols-2 gap-1 h-72">
+                <div className="grid grid-cols-2 gap-1 h-80">
                   {video.images.slice(0, 4).map((image, index) => (
                     <ImageWithFallback
                       key={index}
