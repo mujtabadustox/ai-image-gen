@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   Wand2,
   Settings,
@@ -31,6 +32,7 @@ import { HeaderIcons } from "../components/HeaderIcons";
 import SpiderIcon from "../components/SpiderIcon";
 
 const GeneratePage: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -39,6 +41,14 @@ const GeneratePage: React.FC = () => {
   const [motionValue, setMotionValue] = useState([0.5]);
   const [motionEnabled, setMotionEnabled] = useState(false);
   const [credits, setCredits] = useState(100);
+
+  // Load prompt from URL parameters on component mount
+  useEffect(() => {
+    const urlPrompt = searchParams.get("prompt");
+    if (urlPrompt) {
+      setPrompt(decodeURIComponent(urlPrompt));
+    }
+  }, [searchParams]);
 
   const handleModelToggle = (modelValue: string) => {
     setSelectedModels((prev) => {
@@ -60,17 +70,42 @@ const GeneratePage: React.FC = () => {
     if (!prompt.trim() || credits <= 0) return;
 
     setIsGenerating(true);
+
     // Simulate API call
     setTimeout(() => {
-      // Demo images for different aspect ratios
-      const demoImages = {
-        1: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=512&h=512&fit=crop", // Square 1:1
-        2: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=640&h=480&fit=crop", // 4:3
-        3: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=720&h=405&fit=crop", // 16:9
-        4: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=405&h=720&fit=crop", // 9:16
-      };
+      // Generate random image dimensions based on aspect ratio
+      const baseSize = 512;
+      let width, height;
 
-      setGeneratedImage(demoImages[aspectRatio[0] as keyof typeof demoImages]);
+      // Map aspect ratio slider value to actual dimensions
+      if (aspectRatio[0] <= 1) {
+        // Square 1:1
+        width = baseSize;
+        height = baseSize;
+      } else if (aspectRatio[0] <= 2) {
+        // Classic 4:3
+        width = Math.round(baseSize * 1.33); // 683px
+        height = baseSize;
+      } else if (aspectRatio[0] <= 3) {
+        // Landscape 16:9
+        width = Math.round(baseSize * 1.78); // 912px
+        height = baseSize;
+      } else {
+        // Portrait 9:16
+        width = baseSize;
+        height = Math.round(baseSize * 1.78); // 912px
+      }
+
+      // Generate random Picsum image with calculated dimensions
+      const randomId = Math.floor(Math.random() * 1000) + 1;
+      const generatedImageUrl = `https://picsum.photos/${width}/${height}?random=${randomId}&t=${Date.now()}`;
+
+      console.log("Generated URL:", generatedImageUrl);
+      console.log("Aspect Ratio Value:", getAspectRatioValue(aspectRatio[0]));
+      console.log("Setting generated image...");
+
+      setGeneratedImage(generatedImageUrl);
+      console.log("Image state should be updated now");
       setCredits((prev) => prev - 1);
       setIsGenerating(false);
     }, 3000);
@@ -402,32 +437,49 @@ const GeneratePage: React.FC = () => {
           {/* Main Content Area */}
           <div className="flex-1 flex flex-col h-full">
             {/* Canvas Area */}
-            <div className="flex-1 p-6">
-              <div className="h-full bg-white border-2 border-ghibli-sunset-400 rounded-lg flex items-center justify-center relative">
+            <div className="flex-1 p-6 overflow-hidden">
+              <div className="h-full bg-white flex items-center justify-center relative overflow-auto">
                 {/* Single static firefly in canvas */}
                 <div className="absolute top-6 right-6">
                   <div className="w-2 h-2 rounded-full bg-yellow-300 opacity-70"></div>
                 </div>
 
-                {generatedImage ? (
-                  <div className="relative z-10 max-w-full max-h-full p-8">
-                    <AspectRatio ratio={getAspectRatioValue(aspectRatio[0])}>
-                      <img
-                        src={generatedImage}
-                        alt="Generated artwork"
-                        className="w-full h-full object-cover rounded shadow"
-                      />
-                    </AspectRatio>
-                    <div className="absolute bottom-2 right-2 flex space-x-1">
-                      <Button variant="ghibli-filled" size="sm">
-                        <Heart size={14} />
-                      </Button>
-                      <Button variant="ghibli-cyan-filled" size="sm">
-                        <Share size={14} />
-                      </Button>
-                      <Button variant="ghibli-filled" size="sm">
-                        <Download size={14} />
-                      </Button>
+                {(console.log("Current generatedImage state:", generatedImage),
+                generatedImage) ? (
+                  <div className="relative z-30 w-full min-h-full max-w-2xl p-8 flex items-center justify-center">
+                    <div className="w-full h-auto">
+                      <AspectRatio
+                        ratio={getAspectRatioValue(aspectRatio[0])}
+                        className="visible bg-gray-100 overflow-hidden relative"
+                      >
+                        <img
+                          src={generatedImage}
+                          alt="Generated artwork"
+                          className="w-full h-full object-cover shadow-lg visible absolute inset-0 z-10"
+                          style={{ display: "block" }}
+                          onLoad={() =>
+                            console.log(
+                              "Image loaded successfully:",
+                              generatedImage
+                            )
+                          }
+                          onError={(e) =>
+                            console.error(
+                              "Image failed to load:",
+                              generatedImage,
+                              e
+                            )
+                          }
+                        />
+                      </AspectRatio>
+                    </div>
+                    <div className="absolute top-24 right-8 flex z-50 gap-2">
+                      <div className="rounded-full p-2 bg-ghibli-cream-50/90 backdrop-blur-sm cursor-pointer hover:bg-ghibli-cream-50 transition-all border-2 border-ghibli-coral-400 hover:border-ghibli-coral-500">
+                        <Heart className="h-5 w-5 text-ghibli-coral-600" />
+                      </div>
+                      <div className="rounded-full p-2 bg-ghibli-cream-50/90 backdrop-blur-sm cursor-pointer hover:bg-ghibli-cream-50 transition-all border-2 border-ghibli-sunset-400 hover:border-ghibli-sunset-500">
+                        <Download className="h-5 w-5 text-ghibli-sunset-600" />
+                      </div>
                     </div>
                   </div>
                 ) : (

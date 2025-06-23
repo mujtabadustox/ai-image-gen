@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Download, Star, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -87,14 +88,19 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         ))}
       </div>
 
-      <Button
-        variant="ghibli-filled"
-        size="xxxl"
-        className="w-full text-xl font-bold hover:scale-105 transition-all"
+      <Link
+        to={`/generate?prompt=${encodeURIComponent(prompt)}`}
+        className="w-full"
       >
-        Use This Prompt ✨
-        <Star className="ml-2 h-6 w-6" />
-      </Button>
+        <Button
+          variant="ghibli-filled"
+          size="xxxl"
+          className="w-full text-xl font-bold hover:scale-105 transition-all"
+        >
+          Use This Prompt ✨
+          <Star className="ml-2 h-6 w-6" />
+        </Button>
+      </Link>
     </div>
   ) : (
     <div className="text-ghibli-sunset-700 text-xl font-semibold text-center py-8">
