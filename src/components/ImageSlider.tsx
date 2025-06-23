@@ -98,7 +98,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
           className="w-full text-xl font-bold hover:scale-105 transition-all"
         >
           Use This Prompt ✨
-          <Star className="ml-2 h-6 w-6" />
         </Button>
       </Link>
     </div>
