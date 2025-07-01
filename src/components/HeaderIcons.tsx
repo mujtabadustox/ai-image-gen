@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { User, Settings, Bell, Github } from "lucide-react";
-import { Button } from "./ui/button";
 
 export const HeaderIcons: React.FC = () => {
   const isLoggedIn = false;

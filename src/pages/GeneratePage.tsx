@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   Wand2,
-  Settings,
   Download,
-  Share,
   Heart,
   ChevronDown,
   X,

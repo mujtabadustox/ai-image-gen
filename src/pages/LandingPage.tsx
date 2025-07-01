@@ -2,17 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Sparkles,
-  Image,
-  Users,
-  BookOpen,
   Wind,
   Heart,
-  Star,
-  Sun,
   Bird,
   Origami,
   WandSparkles,
-  ArrowUp,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 

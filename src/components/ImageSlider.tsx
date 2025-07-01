@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Download, Star, Trash2 } from "lucide-react";
+import { Download, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface ImageSliderProps {

@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import {
-  Heart,
-  Star,
-  Sparkles,
-  Wind,
-  Bird,
-  WandSparkles,
-  Download,
-  Loader2,
-  Wand2,
-} from "lucide-react";
+import { Heart, Download, Loader2, Wand2 } from "lucide-react";
 import ImageSlider from "@/components/ImageSlider";
 
 // Picsum API interface
@@ -52,7 +42,6 @@ interface VideoData {
 }
 
 const CommunityFeedPage: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState(0);
   const [liveFeedData, setLiveFeedData] = useState<ArtworkData[]>([]);
   const [videosData, setVideosData] = useState<VideoData[]>([]);
   const [xPostsData, setXPostsData] = useState<ArtworkData[]>([]);
@@ -365,7 +354,7 @@ const CommunityFeedPage: React.FC = () => {
 
   const renderLiveFeedGrid = (artworks: ArtworkData[]) => (
     <div className="max-w-7xl mx-auto columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 px-8 space-y-6">
-      {artworks.map((artwork, index) => (
+      {artworks.map((artwork) => (
         <Dialog key={artwork.id}>
           <DialogTrigger className="group">
             <div className="bg-white/80 backdrop-blur-sm overflow-hidden border-3 border-ghibli-orange hover:border-ghibli-orange/80 hover:transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mb-6 break-inside-avoid">
@@ -466,11 +455,7 @@ const CommunityFeedPage: React.FC = () => {
             </div>
           </DialogTrigger>
           <DialogContent className="bg-ghibli-cream-50/95 backdrop-blur-lg border-3 border-ghibli-orange max-w-2xl">
-            <ImageSlider
-              images={video.images}
-              prompt={video.prompt}
-              selectedImage={selectedImage}
-            />
+            <ImageSlider images={video.images} prompt={video.prompt} />
           </DialogContent>
         </Dialog>
       ))}
